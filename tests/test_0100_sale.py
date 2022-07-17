@@ -26,8 +26,8 @@ __banner__ = r""" (
 class TestCONFIG:
 
     memory = {}
-    memory['__engine'] = 'http://127.0.0.1:10000/api/engine/v1/'
-    memory['__config'] = 'http://127.0.0.1:10001/api/config/v1/'
+    memory['__engine'] = 'https://z-enginetst-emporia.enscaled.sg/api/engine/v1/'
+    memory['__config'] = 'https://z-enginetst-emporia.enscaled.sg/api/config/v1/'
 
     options = { "memory":memory }
 

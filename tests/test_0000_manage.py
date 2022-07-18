@@ -23,13 +23,21 @@ __banner__ = r""" (
 
 """  # __banner__
 
+import platform, requests
+from cubed4th import FORTH
+
 class TestCONFIG:
 
     memory = {}
-    memory['__engine'] = 'https://z-enginetst-emporia.enscaled.sg/api/engine/v1/'
-    memory['__config'] = 'https://z-enginetst-emporia.enscaled.sg/api/config/v1/'
 
-    options = { "memory":memory }
+    if platform.node() in ["I8-BUILD5"]:
+        memory["__engine"] = "http://127.0.0.1:10000/api/engine/v1/"
+        memory["__config"] = "http://127.0.0.1:10000/api/config/v1/"
+    else:
+        memory["__engine"] = "https://z-enginetst-emporia.enscaled.sg/api/engine/v1/"
+        memory["__config"] = "https://z-enginetst-emporia.enscaled.sg/api/config/v1/"
+
+    options = {"memory": memory}
 
     def test_0000(self):
         forth = r"""
@@ -63,7 +71,6 @@ class TestCONFIG:
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
 
-
     def test_0101(self):
         forth = r"""
         ```
@@ -78,7 +85,6 @@ class TestCONFIG:
         """
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
-
 
     def test_0102(self):
         forth = r"""
@@ -121,7 +127,6 @@ class TestCONFIG:
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
 
-
     def test_0190(self):
         forth = r"""
         ```
@@ -137,7 +142,6 @@ class TestCONFIG:
         """
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
-
 
     def test_0200(self):
         forth = r"""
@@ -155,7 +159,6 @@ class TestCONFIG:
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
 
-
     def test_0300(self):
         forth = r"""
         ```
@@ -171,7 +174,6 @@ class TestCONFIG:
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
 
-
     def test_0500(self):
         forth = r"""
         ```
@@ -182,12 +184,3 @@ class TestCONFIG:
         """
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
-
-
-
-from cubed4th import FORTH
-import requests
-
-from icecream import install as install_icecream
-install_icecream()
-

@@ -23,11 +23,18 @@ __banner__ = r""" (
 
 """  # __banner__
 
+import platform, requests
+from cubed4th import FORTH
+
 class TestCONFIG:
 
     memory = {}
-    memory['__engine'] = 'https://z-enginetst-emporia.enscaled.sg/api/engine/v1/'
-    memory['__config'] = 'https://z-enginetst-emporia.enscaled.sg/api/config/v1/'
+    if platform.node() in ["I8-BUILD5"]:
+        memory["__engine"] = "http://127.0.0.1:10000/api/engine/v1/"
+        memory["__config"] = "http://127.0.0.1:10000/api/config/v1/"
+    else:
+        memory["__engine"] = "https://z-enginetst-emporia.enscaled.sg/api/engine/v1/"
+        memory["__config"] = "https://z-enginetst-emporia.enscaled.sg/api/config/v1/"
 
     options = { "memory":memory }
 
@@ -453,12 +460,4 @@ datetime 'start @ - (.total_seconds) cr cr .
 """
         e = FORTH.Engine(forth, **self.options)
         self.options["memory"] = e.root.memory
-
-
-import requests
-from cubed4th import FORTH
-
-from icecream import install as install_icecream
-install_icecream()
-
 
